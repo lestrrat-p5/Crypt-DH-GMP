@@ -15,11 +15,17 @@ if (grep { $_ eq '--debugging' } @ARGV) {
 # Check for hellish-ness
 my $RUNNING_IN_HELL = $^O eq 'MSWin32';
 
-my $CCFLAGS = $ENV{CCFLAGS};
-my $LDFLAGS = $ENV{LDFLAGS};
+my $CCFLAGS = $ENV{CCFLAGS} || '';
+my $LDFLAGS = $ENV{LDFLAGS} || '';
+
+if ($^O eq 'darwin') {
+    $CCFLAGS .= ' -I/opt/local/include';
+    $LDFLAGS .= ' -L/opt/local/lib';
+}
+
 if (! $RUNNING_IN_HELL) {
-    $CCFLAGS ||= '-I/usr/local/include';
-    $LDFLAGS ||= '-L/usr/local/lib';
+    $CCFLAGS ||= ' -I/usr/local/include';
+    $LDFLAGS ||= ' -L/usr/local/lib';
 }
 
 {
@@ -56,7 +62,7 @@ WriteMakefile(
     'VERSION_FROM'  => 'lib/Crypt/DH/GMP.pm',
     'LIBS'          => [ split(/\s+/, $LDFLAGS), '-lgmp'],
     'OBJECT'        => '$(O_FILES)',
-    'CCFLAGS'       => $CCFLAGS,
+    'INC'           => $CCFLAGS,
     'DEFINE'        => $DEFINES,
     'OPTIMIZE'      => $OPTIMIZE,
 );
