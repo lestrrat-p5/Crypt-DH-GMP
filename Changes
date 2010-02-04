@@ -1,7 +1,10 @@
 Changes
 =======
 
-0.00004 - 24 Apr 2008
+0.00006 - 05 Feb 2010
+  - Fix how CCFLAGS/LDFLAGS are set and passed. Hopefully resolves rt #54265
+
+0.00005 - 24 Apr 2008
   - Add pub_key_twoc and compute_key_twoc to directly compute the two's
     complement in binary form
 
