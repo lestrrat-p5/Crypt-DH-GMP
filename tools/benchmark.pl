@@ -35,7 +35,7 @@ my $pub_key = $tmp_dh->pub_key;
     print "Benchmarking key generation cost...\n";
     my $dh_pp = Crypt::DH->new(%args);
     my $dh_gmp = Crypt::DH::GMP->new(%args);
-    cmpthese(500, {
+    cmpthese(300, {
         pp => sub { $dh_pp->generate_keys() },
         gmp => sub { $dh_gmp->generate_keys() },
     } );
@@ -47,7 +47,7 @@ my $pub_key = $tmp_dh->pub_key;
     my $dh_gmp = Crypt::DH::GMP->new(%args);
     $dh_pp->generate_keys();
     $dh_gmp->generate_keys();
-    cmpthese(50000, {
+    cmpthese(300000, {
         pp => sub { $dh_pp->compute_key($pub_key) },
         gmp => sub { $dh_gmp->compute_key($pub_key) },
     });
