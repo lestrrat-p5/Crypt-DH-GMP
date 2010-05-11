@@ -1,5 +1,4 @@
 use inc::Module::Install;
-use Devel::CheckLib;
 
 my @DEFINES;
 if (grep { $_ eq '--very-verbose' } @ARGV) {
@@ -34,7 +33,7 @@ cc_libs @LDFLAGS;
 cc_include_paths @INCLUDES;
 cc_append_to_ccflags @CCFLAGS if @CCFLAGS;
 cc_define @DEFINES;
-cc_assert_lib libpath => \@LIBPATHS, incpath => \@INCLUDES, lib => 'gmp', header => 'gmp.h', debug => 1;
+cc_assert_lib libpath => \@LIBPATHS, incpath => \@INCLUDES, lib => 'gmp', header => 'gmp.h';
 cc_libs 'gmp', map { "-L$_" } @LIBPATHS;
 cc_src_paths 'xs';
 author_tests 'xt';
