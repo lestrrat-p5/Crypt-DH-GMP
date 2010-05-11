@@ -121,15 +121,22 @@ instead, even if you are writing
 =head1 BENCHMARK
 
 By NO MEANS is this an exhaustive benchmark, but here's what I get on my
-MacBook (OS X 10.5.2, 2GHz Core 2 Duo, 2GB RAM)
+MacBook (OS X 10.5.8, 2.4 GHz Core 2 Duo, 4GB RAM)
 
-  daisuke@beefcake Crypt-DH-GMP$ perl -Mblib tools/benchmark.pl 
-        Rate    pp   gmp
-  pp  1.70/s    --  -98%
-  gmp  112/s 6526%    --
+  Benchmarking instatiation cost...
+         Rate   pp  gmp
+  pp   9488/s   -- -79%
+  gmp 45455/s 379%   --
 
-I want it to run for much longer duration, but the above was all I could
-get going at 1am on this particular day
+  Benchmarking key generation cost...
+        Rate gmp  pp
+  gmp 6.46/s  -- -0%
+  pp  6.46/s  0%  --
+
+  Benchmarking compute_key cost...
+          Rate    pp   gmp
+  pp   12925/s    --  -96%
+  gmp 365854/s 2730%    --
 
 =head1 METHODS
 
