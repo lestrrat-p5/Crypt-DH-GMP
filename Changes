@@ -1,6 +1,11 @@
 Changes
 =======
 
+0.00008 - 11 May 2010
+  - Use Test::Requires in tests
+  - Update docs
+  - Update benchmark results
+
 0.00007 - 11 May 2010
   - Modernize file layout
   - Refactor XS code
