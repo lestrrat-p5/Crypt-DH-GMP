@@ -1,5 +1,3 @@
-# $Id: /mirror/coderepos/lang/perl/Crypt-DH-GMP/trunk/lib/Crypt/DH/GMP.pm 51934 2008-04-24T04:35:16.468056Z daisuke  $
-
 package Crypt::DH::GMP;
 use strict;
 use warnings;
@@ -28,7 +26,7 @@ sub new
 {
     my $class = shift;
     my %args  = @_;
-    $class->_xs_new($args{p} || "0", $args{g} || "0", $args{priv_key} || '');
+    $class->_xs_create($args{p} || "0", $args{g} || "0", $args{priv_key} || '');
 }
 
 *compute_secret = \&compute_key;
