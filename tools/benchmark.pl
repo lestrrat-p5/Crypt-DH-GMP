@@ -1,5 +1,17 @@
 use strict;
-use Math::BigInt::GMP;
+eval {
+    require Math::BigInt::GMP;
+};
+if ($@) {
+    print STDERR
+        "This benchmark expects to compute and compare GMP based calculations.\n",
+        "Therefore, you need to have Math::BigInt::GMP installed for Crypt::DH to\n",
+        "utilize GMP.\n",
+        "\n",
+        "Please install Math::BigInt::GMP first.\n"
+    ;
+    exit 0;
+}
 use Crypt::DH;
 use Crypt::DH::GMP;
 use Benchmark::ProgressBar qw(cmpthese);
@@ -13,7 +25,7 @@ my $pub_key = $tmp_dh->pub_key;
 
 {
     print "Benchmarking instatiation cost...\n";
-    cmpthese(500, {
+    cmpthese(50000, {
         pp => sub { Crypt::DH->new(%args) },
         gmp => sub { Crypt::DH::GMP->new(%args) },
     } );
@@ -35,7 +47,7 @@ my $pub_key = $tmp_dh->pub_key;
     my $dh_gmp = Crypt::DH::GMP->new(%args);
     $dh_pp->generate_keys();
     $dh_gmp->generate_keys();
-    cmpthese(500, {
+    cmpthese(50000, {
         pp => sub { $dh_pp->compute_key($pub_key) },
         gmp => sub { $dh_gmp->compute_key($pub_key) },
     });
