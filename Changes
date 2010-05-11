@@ -1,6 +1,11 @@
 Changes
 =======
 
+0.00007 - 11 May 2010
+  - Modernize file layout
+  - Refactor XS code
+  - Should now run on threaded perls
+
 0.00006 - 05 Feb 2010
   - Fix how CCFLAGS/LDFLAGS are set and passed. Hopefully resolves rt #54265
 

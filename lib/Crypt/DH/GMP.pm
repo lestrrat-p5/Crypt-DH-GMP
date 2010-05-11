@@ -2,7 +2,7 @@ package Crypt::DH::GMP;
 use strict;
 use warnings;
 use vars qw($VERSION @ISA);
-$VERSION = '0.00006';
+$VERSION = '0.00007';
 
 eval {
     require XSLoader;
