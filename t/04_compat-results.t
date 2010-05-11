@@ -1,19 +1,8 @@
 use strict;
-use Test::More;
+use Test::More tests => 17;
+use Test::Requires qw(Crypt::DH Math::BigInt::GMP);
 
-BEGIN
-{
-    eval {
-        require Crypt::DH;
-        require Math::BigInt::GMP;
-    };
-    if ($@) {
-        plan(skip_all => "This test requires Crypt::DH and Math::BigInt::GMP");
-    } else {
-        plan(tests => 17);
-    }
-    use_ok("Crypt::DH::GMP");
-}
+use_ok "Crypt::DH::GMP";
 
 my @pgs = (
            {
