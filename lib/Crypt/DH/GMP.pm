@@ -59,43 +59,47 @@ Crypt::DH::GMP - Crypt::DH Using GMP Directly
 Crypt::DH::GMP is a (somewhat) portable replacement to Crypt::DH, implemented
 mostly in C.
 
-Crypt::DH uses Math::BigInt, which is a very feature-full and fast interface
-to perform high-precision math. However, with Crypt::DH, there exists several
-problems:
+=head1 RATIONALE
+
+In the beginning, there was C<Crypt::DH>. However, C<Crypt::DH> suffers
+from a couple of problems:
 
 =over 4
 
 =item GMP/Pari libraries are almost always required
 
-GMP and Pari are High precision math libraries which can be used from 
-Math::BigInt. They are great tools, but require the installation of these
-C libraries.
+C<Crypt::DH> works with a plain C<Math::BigInt>, but if you want to use
+it in production, you almost always need to install C<Math::BigInt::GMP>
+or C<Math::BigInt::Pari> because without them, the computation that is
+required by C<Crypt::DH> makes the module prettu much unusable.
 
-Crypt::DH (and in turn, Math::BigInt) works without these modules, but when
-used without them, Crypt::DH is pretty much useless because of its poor
-performance. This makes the underlying C libraries a requirement.
+Because of this, C<Crypt::DH> might as well make C<Math::BigInt::GMP> a
+hard requirement.
 
 =item Crypt::DH suffers from having Math::BigInt in between GMP
 
-Math::BigInt is (again) a god-sent for those of us who require high-precision
-math from within Perl, but within the usage case that goes from
-Crypt::DH, Math::BigInt, and finally to GMP|Pari, Crypt::DH suffers
-dramatically in terms of performance, mainly (I assume) from the fact that
-it requires several calls that round trip conversions between Perl and GMP.
+With or without C<Math::BigInt::GMP> or C<Math::BigInt::Pari>, C<Crypt::DH>
+makes several round trip conversions between Perl scalars, Math::BigInt objects,
+and finally its C representation (if GMP/Pari are installed).
+
+Instantiating an object comes with a relatively high cost, and if you make
+many computations in one go, your program will suffer dramatically because
+of this. 
 
 =back
 
-Based on these, I've decided that it will probably benefit a fair amount of
-people by introducing a Crypt::DH compatible layer that directly works
-with the C layer of gmp.
+These problems quickly become apparent when you use modules such as 
+C<Net::OpenID::Consumer>, which requires to make a few calls to C<Crypt::DH>.
+
+C<Crypt::DH::GMP> attemps to alleviate these problems by providing a 
+C<Crypt::DH>-compatible layer, which, instead of doing calculations via
+Math::BigInt, directly works with libgmp in C.
 
 This means that we've essentially eliminated 2 call stacks worth of 
-Perl method calls (which are expensive) and we also only load the
-1 (Crypt::DH::GMP) module instead of 3 (Crypt::DH + Math::BigInt + Math::BigInt::GMP)
+expensive Perl method calls and we also only load 1 (Crypt::DH::GMP) module
+instead of 3 (Crypt::DH + Math::BigInt + Math::BigInt::GMP).
 
 These add up to a fairly significant increase in performance.
-
-
 
 =head1 COMPATIBILITY WITH Crypt::DH
 
