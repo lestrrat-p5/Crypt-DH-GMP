@@ -37,4 +37,7 @@ cc_assert_lib libpath => \@LIBPATHS, incpath => \@INCLUDES, lib => 'gmp', header
 cc_libs 'gmp', map { "-L$_" } @LIBPATHS;
 cc_src_paths 'xs';
 author_tests 'xt';
+
+test_requires 'Test::More';
+test_requires 'Test::Requires';
 WriteAll;
