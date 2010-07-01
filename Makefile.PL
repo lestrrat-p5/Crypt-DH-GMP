@@ -11,8 +11,28 @@ my @INCLUDES;
 my @LIBPATHS;
 
 if ($^O eq 'darwin') {
-    push @INCLUDES, '/opt/local/include';
-    push @LIBPATHS, '/opt/local/lib';
+    if (! exists $ENV{USE_MACPORTS}) {
+        print 
+            "======\n\n",
+            "Automatically enabling pushing MacPorts into our path(s)...\n",
+            "Set USE_MACPORTS=0 if you don't want me to do this\n\n",
+            "======\n"
+        ;
+        $ENV{USE_MACPORTS} = 1;
+    }
+    if ($ENV{USE_MACPORTS}) {
+        if ( ! -d '/opt/local/include' ) {
+            print " * Attempted to push /opt/local/include in our path, but it wasn't there.\n";
+        } else {
+            push @INCLUDES , '/opt/local/include';
+        }
+
+        if ( ! -d '/opt/local/lib') {
+            print " * Attempted to push /opt/local/lib in our path, but it wasn't there.\n";
+        } else {
+            push @LIBPATHS, '/opt/local/lib';
+        }
+    }
 } 
 
 # Stolen from Math::BigInt::GMP
