@@ -1,6 +1,10 @@
 Changes
 =======
 
+0.00009 - 02 Jul 2010
+  - No code change
+  - Tweak Makefile.PL to work better with MacPorts (with or without it)
+
 0.00008 - 11 May 2010
   - Use Test::Requires in tests
   - Update docs
