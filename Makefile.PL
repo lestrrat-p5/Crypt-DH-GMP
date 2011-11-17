@@ -5,8 +5,8 @@ if (grep { $_ eq '--very-verbose' } @ARGV) {
     push @DEFINES, '-DVERY_VERBOSE';
 }
 
-my @CCFLAGS = split(//, $ENV{CCFLAGS} || '');
-my @LDFLAGS = split(//, $ENV{LDFLAGS} || '');
+my @CCFLAGS = split(' ', $ENV{CCFLAGS} || '');
+my @LDFLAGS = split(' ', $ENV{LDFLAGS} || '');
 my @INCLUDES;
 my @LIBPATHS;
 
