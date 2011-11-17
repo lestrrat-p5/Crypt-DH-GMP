@@ -1,6 +1,6 @@
 use strict;
 use Test::More (tests => 2);
-use Test::Requires 'Net::OpenID::Consumer';
+use Test::Requires qw(Net::OpenID::Consumer);
 
 use_ok("Crypt::DH::GMP");
 
@@ -13,5 +13,17 @@ $dh->generate_keys;
 my $pub_key_dec = $dh->pub_key;
 my $pub_key_bi  = Math::BigInt->new($pub_key_dec);
 
-is( pack("B*", $dh->pub_key_twoc), OpenID::util::bi2bytes($pub_key_bi), "pub_key_twoc produces the same results as OpenID::util::bi2bytes" );
+# Copied stuff from Net::OpenID::Common 1.14
+my $bits = $pub_key_bi->as_bin;
+$bits =~ s/^0b//;
+my $prepend = (8 - length($bits) % 8) || ($bits =~ /^1/ ? 8 : 0);
+$bits = ("0" x $prepend) . $bits if $prepend;
+
+my $bytes = pack("B*", $bits);
+# end copied stuff
+
+if (! is( pack("B*", $dh->pub_key_twoc), $bytes, "pub_key_twoc produces the expected results" ) ) {
+    diag "pub_key_twoc: " . $dh->pub_key_twoc;
+    diag "pub_key_bi: " . $pub_key_bi->as_bin;
+}
 
