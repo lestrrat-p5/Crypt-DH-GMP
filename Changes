@@ -1,6 +1,11 @@
 Changes
 =======
 
+0.00010 - 17 Nov 2011
+    - Split CCFLAGS and LFLAGS into words (rt #72464)
+    - Fix t/02_binhack.t to work with modern Net::OpenID::Consumer
+    - Don't rely on hardcoded size_t
+
 0.00009 - 02 Jul 2010
   - No code change
   - Tweak Makefile.PL to work better with MacPorts (with or without it)
