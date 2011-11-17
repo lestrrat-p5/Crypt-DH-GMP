@@ -113,10 +113,11 @@ PerlCryptDHGMP_generate_keys( PerlCryptDHGMP *dh )
         mpz_init(max);
         mpz_sub_ui(max, PerlCryptDHGMP_P(dh), 1);
         do {
-            PerlCryptDHGMP_mpz_rand_set(PerlCryptDHGMP_PRIVKEY_PTR(dh), mpz_sizeinbase(PerlCryptDHGMP_P(dh), 2));
+            size_t p_size = mpz_sizeinbase(PerlCryptDHGMP_P(dh), 2);
+            PerlCryptDHGMP_mpz_rand_set(PerlCryptDHGMP_PRIVKEY_PTR(dh), p_size);
         } while ( mpz_cmp(PerlCryptDHGMP_PRIVKEY(dh), max) > 0 );
     }
-            
+
     mpz_powm(
         PerlCryptDHGMP_PUBKEY(dh),
         PerlCryptDHGMP_G(dh),
