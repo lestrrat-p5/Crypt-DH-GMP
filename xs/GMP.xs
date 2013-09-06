@@ -88,6 +88,8 @@ PerlCryptDHGMP_clone(self)
 void
 PerlCryptDHGMP_generate_keys(dh)
         PerlCryptDHGMP *dh;
+    CODE:
+        PerlCryptDHGMP_generate_keys(aTHX_ dh);
 
 char *
 PerlCryptDHGMP_compute_key(dh, pub_key)

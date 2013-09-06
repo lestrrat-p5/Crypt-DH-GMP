@@ -29,7 +29,7 @@ typedef struct {
 PerlCryptDHGMP *PerlCryptDHGMP_clone(PerlCryptDHGMP *p);
 PerlCryptDHGMP *PerlCryptDHGMP_create(char *p, char *g, char *priv_key);
 char *PerlCryptDHGMP_compute_key( PerlCryptDHGMP *dh, char * pub_key );
-void PerlCryptDHGMP_generate_keys( PerlCryptDHGMP *dh );
+void PerlCryptDHGMP_generate_keys(pTHX_ PerlCryptDHGMP *dh );
 char *PerlCryptDHGMP_compute_key_twoc( PerlCryptDHGMP *dh, char * pub_key );
 char *PerlCryptDHGMP_priv_key( PerlCryptDHGMP *dh );
 char *PerlCryptDHGMP_pub_key( PerlCryptDHGMP *dh );

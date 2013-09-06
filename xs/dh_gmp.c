@@ -4,11 +4,16 @@
 #include "dh_gmp.h"
 
 void
-PerlCryptDHGMP_mpz_rand_set(mpz_t *v, unsigned int bits)
+PerlCryptDHGMP_mpz_rand_set(pTHX_ mpz_t *v, unsigned int bits)
 {
     gmp_randstate_t state;
+
     gmp_randinit_default(state);
-    gmp_randseed_ui(state, (unsigned long) time(NULL));
+    /* Perl_seed should come with Perl 5.8.1. You shouldn't be using
+       Perl older than that, or at least you should be supplying me with
+       a patch
+    */
+    gmp_randseed_ui(state, Perl_seed(aTHX));
     mpz_urandomb(*v, state, bits);
     gmp_randclear(state);
 }
@@ -104,7 +109,7 @@ PerlCryptDHGMP_clone(PerlCryptDHGMP *o)
 }
 
 void
-PerlCryptDHGMP_generate_keys( PerlCryptDHGMP *dh )
+PerlCryptDHGMP_generate_keys(pTHX_ PerlCryptDHGMP *dh )
 {
     if (mpz_cmp_ui(PerlCryptDHGMP_PRIVKEY(dh), 0) == 0) {
         mpz_t max;
@@ -114,7 +119,7 @@ PerlCryptDHGMP_generate_keys( PerlCryptDHGMP *dh )
         mpz_sub_ui(max, PerlCryptDHGMP_P(dh), 1);
         do {
             size_t p_size = mpz_sizeinbase(PerlCryptDHGMP_P(dh), 2);
-            PerlCryptDHGMP_mpz_rand_set(PerlCryptDHGMP_PRIVKEY_PTR(dh), p_size);
+            PerlCryptDHGMP_mpz_rand_set(aTHX_ PerlCryptDHGMP_PRIVKEY_PTR(dh), p_size);
         } while ( mpz_cmp(PerlCryptDHGMP_PRIVKEY(dh), max) > 0 );
     }
 
