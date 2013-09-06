@@ -1,0 +1,2 @@
+language: perl
+before_install: 'cpanm Module::Install::XSUtil Module::Install::AuthorTests Devel::Declare'
