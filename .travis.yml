@@ -1,5 +1,5 @@
 language: perl
-install: 'cpanm Module::Install::XSUtil Module::Install::AuthorTests Devel::CheckLib'
+install: 'apt-get install libgmp3-dev && cpanm Module::Install::XSUtil Module::Install::AuthorTests Devel::CheckLib'
 script: 'perl Makefile.PL && make && make test'
 perl:
     - 5.18
