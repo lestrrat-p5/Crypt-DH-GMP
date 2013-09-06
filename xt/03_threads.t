@@ -1,5 +1,10 @@
 use strict;
 use Test::More;
+BEGIN {
+    if (! $Config{useithreads}) {
+        plan skip_all => "This perl is not built with threads";
+    }
+}
 use threads;
 use_ok "Crypt::DH::GMP";
 
