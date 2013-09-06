@@ -1,4 +1,5 @@
 package Crypt::DH::GMP;
+use 5.0080001;
 use strict;
 use warnings;
 use vars qw($VERSION @ISA);
@@ -165,6 +166,8 @@ in binary form.
 
 Returns the pub_key as a string that is byte-padded two's compliment
 in binary form.
+
+=head2 clone
 
 =head1 AUTHOR
 
