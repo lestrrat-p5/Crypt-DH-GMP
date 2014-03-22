@@ -30,7 +30,8 @@ PerlCryptDHGMP_mpz2sv_str(mpz_t *v, unsigned int base, unsigned int *length)
     buf_end = buf + len - 1; /* end of storage (-1) */
     mpz_get_str(buf, base, *v);
     if (*buf_end == 0) {
-        Renew(buf, len - 1, char); /* got one shorter than expected */
+       Renew(buf, len, char); /* got one shorter than expected */
+       len--;
     }
 
     if (length != NULL)
