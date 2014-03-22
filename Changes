@@ -1,6 +1,10 @@
 Changes
 =======
 
+0.00012 - 22 Mar 2014
+    - pr #1 add repo location in metadata (dsteinbrunner)
+    - apply changes from https://rt.cpan.org/Ticket/Display.html?id=56794#txn-1341476
+
 0.00011 - 07 Sep 2013
     - Make generate_keys way more random by using Perl_seed
       (reported by karupanerura).

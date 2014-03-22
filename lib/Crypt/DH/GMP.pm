@@ -3,7 +3,7 @@ use 5.0080001;
 use strict;
 use warnings;
 use vars qw($VERSION @ISA);
-$VERSION = '0.00011';
+$VERSION = '0.00012';
 
 eval {
     require XSLoader;
