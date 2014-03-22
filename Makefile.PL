@@ -58,6 +58,8 @@ cc_libs 'gmp', map { "-L$_" } @LIBPATHS;
 cc_src_paths 'xs';
 author_tests 'xt';
 
+repository 'https://github.com/lestrrat/Crypt-DH-GMP';
+
 test_requires 'Test::More';
 test_requires 'Test::Requires';
 WriteAll;
